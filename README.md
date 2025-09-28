@@ -18,3 +18,9 @@ This project follows:
 - Divide & Conquer strategies
 - Master Theorem / Akra-Bazzi analysis
 - GitHub workflow with branches and commits
+
+### Time vs Array Size
+![Time vs n](time_vs_n.png)
+
+### Recursion Depth vs Array Size
+![Depth vs n](depth_vs_n.png)
