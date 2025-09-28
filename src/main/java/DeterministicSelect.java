@@ -14,7 +14,7 @@ public class DeterministicSelect {
         while (true) {
             if (left == right) return arr[left];
 
-            // pivotIndex is now an index (not a value)
+            // pivotIndex
             int pivotIndex = medianOfMedians(arr, left, right, metrics, depth + 1);
             pivotIndex = partition(arr, left, right, pivotIndex, metrics);
 
@@ -27,7 +27,7 @@ public class DeterministicSelect {
         }
     }
 
-    // In-place partition by pivot index; returns final storeIndex
+    //  returns final storeIndex
     private static int partition(int[] arr, int left, int right, int pivotIndex, Metrics metrics) {
         int pivotValue = arr[pivotIndex];
         swap(arr, pivotIndex, right, metrics); // move pivot to end
@@ -43,7 +43,7 @@ public class DeterministicSelect {
         return storeIndex;
     }
 
-    // Small helper swap (keeps metrics)
+
     private static void swap(int[] arr, int i, int j, Metrics metrics) {
         if (i != j) {
             int tmp = arr[i];
@@ -53,10 +53,7 @@ public class DeterministicSelect {
         }
     }
 
-    /**
-     * Build medians of groups of 5 at the front of the subarray [left..right],
-     * then recursively find the median-of-medians and return its INDEX (absolute index).
-     */
+
     private static int medianOfMedians(int[] arr, int left, int right, Metrics metrics, int depth) {
         int n = right - left + 1;
         if (n <= 5) {
@@ -66,7 +63,7 @@ public class DeterministicSelect {
         }
 
         int numMedians = 0;
-        // For each group of up to 5, sort and move its median into arr[left + numMedians]
+
         for (int i = left; i <= right; i += 5) {
             int subRight = Math.min(i + 4, right);
             Arrays.sort(arr, i, subRight + 1);
@@ -76,9 +73,7 @@ public class DeterministicSelect {
             numMedians++;
         }
 
-        // Now medians are in arr[left .. left + numMedians - 1]
-        // Find the median of these medians (value), then return its index
-        // Note: select(...) returns the VALUE at the given absolute index.
+
         int medianOfMediansValue = select(arr, left, left + numMedians - 1, left + numMedians / 2, metrics, depth + 1);
 
         // Find the index of that median value within the medians subarray and return it
@@ -88,7 +83,7 @@ public class DeterministicSelect {
             }
         }
 
-        // Fallback (shouldn't happen): return left
+
         return left;
     }
 }
